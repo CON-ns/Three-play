@@ -51,8 +51,8 @@ function init() {
     envLeft,
     envTop,
     envBottom,
-    envFront,
     envBack,
+    envFront,
   ];
 
   //環境キューブマッピングを実行

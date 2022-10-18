@@ -6,8 +6,8 @@ import envTop from "./envMap/top.png";
 import envBottom from "./envMap/bottom.png";
 import envRight from "./envMap/right.png";
 import envLeft from "./envMap/left.png";
-import envFront from "./envMap/Front.png";
-import envBack from "./envMap/Back.png";
+import envFront from "./envMap/front.png";
+import envBack from "./envMap/back.png";
 
 let camera, scene, renderer,pointLight;
 

@@ -2,7 +2,12 @@ import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { PLYLoader } from "three/examples/jsm/loaders/PLYLoader";
 import { TDSLoader } from "three/addons/loaders/TDSLoader.js";
-// import { envTop } from "./envMap/top.png";
+import envTop from "./envMap/top.png";
+import envBottom from "./envMap/bottom.png";
+import envRight from "./envMap/right.png";
+import envLeft from "./envMap/left.png";
+import envFront from "./envMap/Front.png";
+import envBack from "./envMap/Back.png";
 
 let camera, scene, renderer,pointLight;
 
@@ -41,12 +46,12 @@ function init() {
 
   //envimages
   const urls = [
-    "./envMap/right.png",
-    "./envMap/left.png",
-    "./envMap/top.png",
-    "./envMap/bottom.png",
-    "./envMap/front.png",
-    "./envMap/back.png",
+    envRight,
+    envLeft,
+    envTop,
+    envBottom,
+    envFront,
+    envBack,
   ];
 
   //環境キューブマッピングを実行

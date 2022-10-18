@@ -1,3 +1,4 @@
-# Three-play
-# three-wolf
-# threejs-diamond
+# update時コマンド
+ git add .
+ git commit -m "all done"
+ git push

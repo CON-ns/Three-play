@@ -8,7 +8,7 @@ import envRight from "./envMap/right.png";
 import envLeft from "./envMap/left.png";
 import envFront from "./envMap/front.png";
 import envBack from "./envMap/back.png";
-import wolf from "ply/Wolf_One_ply.ply";
+import wolf from "./ply/Wolf_One_ply.ply";
 
 
 let camera, scene, renderer,pointLight;

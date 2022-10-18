@@ -1,17 +1,16 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
-import { PLYLoader } from "three/examples/jsm/loaders/PLYLoader";
-import { TDSLoader } from "three/addons/loaders/TDSLoader.js";
+import GUI from "lil-gui";
 import envTop from "./envMap/top.png";
 import envBottom from "./envMap/bottom.png";
 import envRight from "./envMap/right.png";
 import envLeft from "./envMap/left.png";
 import envFront from "./envMap/front.png";
 import envBack from "./envMap/back.png";
-import wolf from "./ply/Wolf_One_ply.ply";
 
 
-let camera, scene, renderer,pointLight;
+
+let camera, scene, renderer,pointLight,diamond,diamond2,diamond3;
 
 //canvasを定義
 const canvas = document.getElementById("canvas");
@@ -36,7 +35,7 @@ function init() {
   const far = 1000; //撮影終了距離
   camera = new THREE.PerspectiveCamera(fov, aspect, near, far); //カメラを定義
   scene.add(camera); //カメラをシーンに追加
-  camera.position.z = -10; //カメラの位置を変更
+  camera.position.z = -30; //カメラの位置を変更
 
   //レンダラーを定義
   renderer = new THREE.WebGLRenderer({
@@ -77,66 +76,67 @@ function init() {
     new THREE.MeshBasicMaterial({ color: 0xffffff })
   );
   mesh.scale.set(0.05, 0.05, 0.05);
-  pointLight.intensity = 0.7;
+  pointLight.intensity = 1.5;
   pointLight.add(mesh); //ポイントライトにメッシュを追加
 
   // material samples
   const cubeMaterial1 = new THREE.MeshPhongMaterial({
-    color: 0xffffff,
+    color: 0xf5f5f5,
     envMap: textureCube,
     refractionRatio: 0.98,
     refractionRatio: 0.9,
   });
   const cubeMaterial2 = new THREE.MeshPhongMaterial({
-    color: 0xccfffd,
+    color: 0xb0c4de,
     envMap: textureCube,
     refractionRatio: 0.985,
   });
   const cubeMaterial3 = new THREE.MeshPhongMaterial({
-    color: 0xccddff,
+    color: 0xffa07a,
     envMap: textureCube,
     refractionRatio: 0.98,
     reflectivity: 0.9,
   });
-  const cubeMaterial4 = new THREE.MeshPhysicalMaterial({
-    color: 0xffffff,
-    envMap: textureCube,
-    transmission: 1,
-    opacity: 1,
-    metalness: 0,
-    roughness: 0,
-    ior: 1.5,
-    thickness: 0.01,
-    specularIntensity: 1,
-    specularColor: 0xffffff,
-    envMapIntensity: 1,
-    lightIntensity: 1,
-    exposure: 1,
-  });
-  const cubeMaterial5 = new THREE.MeshBasicMaterial({
-    color: 0xffffff,
-    envMap: textureCube,
-    refractionRatio: 0.95,
-  });
 
-  //モデルデータの読み込み
-  const loader = new PLYLoader();
-  loader.load(wolf, function (geometry) {
-    createScene(geometry, cubeMaterial4);
-  });
-}
+  //デバッグを追加
+  const gui = new GUI();
+  gui.addColor(cubeMaterial1, "color").name("center");
+  gui.addColor(cubeMaterial2, "color").name("left");
+  gui.addColor(cubeMaterial3, "color").name("right");
 
-function createScene(geometry, m1) {
-  geometry.computeVertexNormals();
+  
+  //オブジェクトの生成
+  const diamondTop = new THREE.ConeGeometry(5,9,6,1);
+  const diaTop1 = new THREE.Mesh(diamondTop, cubeMaterial1);
+  const diaBottom = diaTop1.clone();
+  const diaTop2 = new THREE.Mesh(diamondTop, cubeMaterial2);
+  const diaBottom2 = diaTop2.clone();
+  const diaTop3 = new THREE.Mesh(diamondTop, cubeMaterial3);
+  const diaBottom3 = diaTop3.clone();
 
-  const s = 8;
+  diaTop1.position.y = 7;
+  diaBottom.position.y = -2;
+  diaBottom.rotation.x = Math.PI;
+  scene.add(diaTop1, diaBottom);
+  diaTop2.position.y = 7;
+  diaBottom2.position.y = -2;
+  diaBottom2.rotation.x = Math.PI;
+  scene.add(diaTop2, diaBottom2);
+  diaTop3.position.y = 7;
+  diaBottom3.position.y = -2;
+  diaBottom3.rotation.x = Math.PI;
+  scene.add(diaTop3, diaBottom3);
+  
+  diamond = new THREE.Group();
+  diamond.add(diaTop1, diaBottom);
+  diamond2 = new THREE.Group();
+  diamond2.add(diaTop2, diaBottom2);
+  diamond3 = new THREE.Group();
+  diamond3.add(diaTop3, diaBottom3);
+  scene.add(diamond, diamond2, diamond3);
+  diamond2.position.x = 15;
+  diamond3.position.x = -15;
 
-  let wolf = new THREE.Mesh(geometry, m1);
-  wolf.scale.x = wolf.scale.y = wolf.scale.z = s;
-  wolf.rotation.x = (Math.PI / 2) * 3;
-  wolf.rotation.z = Math.PI / 2;
-  wolf.position.y = -2;
-  scene.add(wolf);
 }
 
 /*
@@ -168,10 +168,10 @@ function animate() {
 function render() {
   const timer = -0.0002 * Date.now();
   camera.lookAt(scene.position);
-  // camera.position.x = Math.sin(Math.PI * 0.1 * timer) * 10;
-  // camera.position.z = Math.cos(Math.PI * 0.1 * timer) * 7;
+  diamond.rotation.y = timer;
+  diamond2.rotation.y = timer;
+  diamond3.rotation.y = timer;
   pointLight.position.x = 100 * Math.cos(timer);
   pointLight.position.z = 100 * Math.sin(timer);
-
   renderer.render(scene, camera);
 }

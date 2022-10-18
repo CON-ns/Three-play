@@ -8,6 +8,8 @@ import envRight from "./envMap/right.png";
 import envLeft from "./envMap/left.png";
 import envFront from "./envMap/front.png";
 import envBack from "./envMap/back.png";
+import wolf from "ply/Wolf_One_ply.ply";
+
 
 let camera, scene, renderer,pointLight;
 
@@ -119,7 +121,7 @@ function init() {
 
   //モデルデータの読み込み
   const loader = new PLYLoader();
-  loader.load("ply/Wolf_One_ply.ply", function (geometry) {
+  loader.load(wolf, function (geometry) {
     createScene(geometry, cubeMaterial4);
   });
 }

@@ -1,97 +1,111 @@
-:root {
-  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
-  font-size: 16px;
-  line-height: 24px;
-  font-weight: 400;
+@charset "UTF-8";
+/*
+  1. より直感的なボックスサイズのモデルを使用
+*/
+*, *::before, *::after {
+  box-sizing: border-box;
+}
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+/*
+  2. デフォルトのマージンを削除
+*/
+* {
+  margin: 0;
+}
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
+p, h1, h2, h3, h4, h5, h6, li, a, span, em, ul {
+  padding: 0;
+  margin: 0;
+}
+
+/*
+  3. 高さは%ベースを使用
+*/
+html, body {
+  overflow-x: hidden;
+}
+
+/*
+  タイポグラフィの微調整
+  4. アクセシブルなline-heightを追加
+  5. テキストのレンダリングを改善
+*/
+body {
+  line-height: 1.5;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-text-size-adjust: 100%;
+  text-rendering: optimizeSpeed;
+}
+
+/*
+  6. メディア要素のデフォルトを改善
+*/
+img, picture, video, canvas, svg {
+  display: inline-block;
+  max-width: 100%;
+}
+
+/*
+  7. フォームのfontに関するデフォルトを削除
+*/
+input, button, textarea, select {
+  font: inherit;
+}
+
+/*
+  8. テキストのオーバーフローを回避
+*/
+p, h1, h2, h3, h4, h5, h6, li, a, span, em {
+  overflow-wrap: break-word;
+  word-break: break-word;
+  white-space: normal;
+}
+
+/*
+  9. ルートのスタックコンテキストを作成
+*/
+#root, #__next {
+  isolation: isolate;
 }
 
 a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+  text-decoration: none;
+  color: inherit;
+  display: inline-block;
 }
 
-body {
-  margin: 0;
+.l-globalNav {
+  position: fixed;
+  z-index: 300;
+  top: 0;
+  left: 1%;
+  color: white;
+  height: 72px;
+  width: 120px;
   display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  justify-content: center;
+  align-items: center;
 }
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+.l-globalNav a {
+  font-size: 20px;
+  padding: 10px;
+  white-space: nowrap;
+  letter-spacing: 0.15rem;
+  font-family: "niveau-grotesk", sans-serif;
 }
-
-#app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+.l-globalNav a span {
+  white-space: nowrap;
+  color: #cd458d;
+  font-family: "mr-keningbeck-pro", sans-serif;
+  font-size: 2.5rem;
 }
-
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vanilla:hover {
-  filter: drop-shadow(0 0 2em #f7df1eaa);
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
+@media all and (max-width: 767px) {
+  .l-globalNav a {
+    letter-spacing: 0.1rem;
   }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
+}
+@media all and (max-width: 767px) {
+  .l-globalNav a {
+    font-size: 16px;
+    padding: 5px;
   }
 }
